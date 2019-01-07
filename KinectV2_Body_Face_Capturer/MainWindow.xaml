@@ -1,0 +1,184 @@
+﻿<Window x:Name="MainWin" x:Class="KinectV2_Fingerspelling.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Kinect 2 Data Capturer"  Width="1088" Height="701" 
+        Icon="Images/sensor_ico.ico" Closing="MainWin_Closing" Loaded="MainWin_Loaded">
+
+    <Grid x:Name="mainGrid">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="10*"/>
+            <RowDefinition Height="286*"/>
+            <RowDefinition Height="17*"/>
+        </Grid.RowDefinitions>
+
+        <!--Row 0-->
+        <Grid Grid.Row="0" Grid.Column="0">
+            <Menu x:Name="menuMain" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Height="100">
+                <MenuItem x:Name="mnuFile" Header="_File" />
+                <MenuItem x:Name="mnuCamera" Header="_Camera">
+                    <MenuItem Header="Color Camera"/>
+                    <MenuItem Header="Depth Camera" Click="mnuDepthCamera_Click"/>
+                </MenuItem>
+            </Menu>
+
+        </Grid>
+
+        <!--Row 1-->
+        <Grid x:Name="gridControls1" Grid.Row="1" Grid.Column="0">
+            <!--Two Columns-->
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="719*"/>
+                <ColumnDefinition Width="361*"/>
+            </Grid.ColumnDefinitions>
+
+            <!--The first Column, divided into 2x2-->
+            <Grid Grid.Row="0" Grid.Column="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="179*"/>
+                    <ColumnDefinition Width="181*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="147*"/>
+                    <RowDefinition Height="148*"/>
+                </Grid.RowDefinitions>
+
+                <!--Set the depth grid-->
+                <Grid Grid.Row="0" Grid.Column="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="26*"/>
+                        <RowDefinition Height="269*"/>
+                    </Grid.RowDefinitions>
+                    <Label x:Name="lblDepthFrame" Content="Depth Frame" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Top" HorizontalContentAlignment="Center" />
+                    <Image x:Name="imgOutDepth" Stretch="Uniform"  Grid.Row="1" Grid.Column="0" Width="256" Height="212" />
+                </Grid>
+
+                <!-- Set the depth_colored grid -->
+                <Grid Grid.Row="0"  Grid.Column="1"  >
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="26*"/>
+                        <RowDefinition Height="269*"/>
+                    </Grid.RowDefinitions>
+                    <Label x:Name="lblMapDepthToColorFrame" Content="Colored Depth Frame" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Top" HorizontalContentAlignment="Center" />
+                    <Image x:Name="imgOutMapDepthToColor" Stretch="Uniform" Grid.Row="1" Grid.Column="0" Width="256" Height="212" />
+                </Grid>
+
+                <!--Set the depth grid-->
+                <Grid Grid.Row="1" Grid.Column="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="26*"/>
+                        <RowDefinition Height="269*"/>
+                    </Grid.RowDefinitions>
+                    <Label Content="Color Frame" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Top" HorizontalContentAlignment="Center" />
+                    <Image x:Name="imgOutColorFrame" Stretch="Uniform"  Grid.Row="1" Grid.Column="0" Width="256" Height="212" />
+                </Grid>
+
+                <!--Set the hand grid-->
+                <Grid Grid.Row="1" Grid.Column="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="26*"/>
+                        <RowDefinition Height="269*"/>
+                    </Grid.RowDefinitions>
+                    <Label Content="Hand Shape" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Top" HorizontalContentAlignment="Center" />
+                    <Image x:Name="imgOutHandMask" Stretch="Uniform"  Grid.Row="1" Grid.Column="0" Width="256" Height="212" />
+                </Grid>
+
+            </Grid>
+
+            <!--The second Column-->
+            <Grid Grid.Row="0" Grid.Column="1">
+                <!--Two Rows-->
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="62*"/>
+                    <RowDefinition Height="91*"/>
+                </Grid.RowDefinitions>
+
+                <!--Row 01-->
+                <Grid x:Name="gridCaptureOneShot" Grid.Row="0" Grid.Column="0" >
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="57*"/>
+                        <RowDefinition Height="47*"/>
+                        <RowDefinition Height="47*"/>
+                        <RowDefinition Height="32*"/>
+                        <RowDefinition Height="47*"/>
+                    </Grid.RowDefinitions>
+                    <Image x:Name="imgKinect"  Grid.Row="0" Grid.Column="0" Source="images/kinect.png" VerticalAlignment="Center" HorizontalAlignment="Left" Width="104" Height="36"   />
+
+                    <Grid  Grid.Row="1" Grid.Column="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="129*"/>
+                            <ColumnDefinition Width="66*"/>
+                            <ColumnDefinition Width="166*"/>
+                        </Grid.ColumnDefinitions>
+                        <Label x:Name="lblFrameRate" Content="Frame Rate: " Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" Margin="0,12,0,13" Height="26" />
+                        <Label Content="Set FPS" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" VerticalContentAlignment="Center" Height="26" Margin="0,12,0,13" Width="49"/>
+                        <ComboBox x:Name="cmbSetFrameToCapture" Grid.Row="0" Grid.Column="2" SelectionChanged="cmbSetFrameToCapture_SelectionChanged" Width="80" Height="20" VerticalAlignment="Center" VerticalContentAlignment="Center"   />
+
+
+                    </Grid>
+
+                    <Grid Grid.Column="0" Grid.Row="2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="59*"/>
+                            <ColumnDefinition Width="222*"/>
+                            <ColumnDefinition Width="80*"/>
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Column="0" Grid.Row="0" Content="Depth" VerticalAlignment="Center" VerticalContentAlignment="Center"/>
+                        <Slider x:Name="sliderDepthTH"  Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" Height="40" Maximum="100" SmallChange="5" Value="70" VerticalContentAlignment="Center" TickFrequency="5" TickPlacement="BottomRight"  IsSnapToTickEnabled="True"/>
+                        <TextBlock Text="{Binding ElementName=sliderDepthTH, Path=Value, UpdateSourceTrigger=PropertyChanged}" Grid.Row="0" Grid.Column="2"  VerticalAlignment="Center"  Height="25" Width="30" />
+
+                    </Grid>
+                    
+                    <Button x:Name="btnCaptureOneShot" Grid.Column="0" Grid.Row="4"  HorizontalAlignment="Center"  Width="120" VerticalAlignment="Center" Height="28" Click="btnCaptureOneShot_Click" Content="Capture One Shot" FontWeight="Bold" />
+
+
+                </Grid>
+
+
+                <!--Row 02-->
+                <Grid x:Name="gridCaptureFrames"  Grid.Row="1" Grid.Column="0" >
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="38*"/>
+                        <RowDefinition Height="38*"/>
+                        <RowDefinition Height="38*"/>
+                        <RowDefinition Height="38*"/>
+                        <RowDefinition Height="38*"/>
+                        <RowDefinition Height="38*"/>
+                        <RowDefinition Height="38*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="155*"/>
+                        <ColumnDefinition Width="206*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Label Content="Save data:"  Grid.Row="0" Grid.Column="0" FontSize="14" FontWeight="Bold"  HorizontalAlignment="Left"  VerticalContentAlignment="Center" />
+                    <CheckBox x:Name="chkMapJoints"  Grid.Row="0" Grid.Column="1" HorizontalAlignment="Left"  VerticalContentAlignment="Center" Content="Show 2D Joints" Click="chkMapJoints_Click" Height="25"  />
+                    <Label Content="Filename of Data: " Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left"  VerticalContentAlignment="Center"  />
+                    <TextBox x:Name="txtFilename" Text="Sign1" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" Margin="0,10" Width="120"   />
+                    <Label x:Name="lblFixedFrames" Grid.Row="2" Grid.Column="0" Content="Fixed Frames " HorizontalAlignment="Left" VerticalContentAlignment="Center" />
+                    <TextBox x:Name="txtFixedFrames" Text="-1" Grid.Row="2" Grid.Column="1"  HorizontalAlignment="Left" Margin="0,10" Width="120"  />
+
+                    <Label x:Name="lblRecording" Grid.Row="3" Grid.Column="0" Content="Recording: " FontSize="14" FontWeight="Bold" Foreground="Red" Margin="5,6,186,17" VerticalAlignment="Center" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" Grid.ColumnSpan="2" Height="29" />
+                    <Label x:Name="lblRecordingFramesCount"  Content="1" Grid.Row="4" Grid.Column="0"  HorizontalAlignment="Right" VerticalAlignment="Center" Width="60" Foreground="Red" HorizontalContentAlignment="Right" Margin="0,13,0,12" Height="26" />
+                    <Label x:Name="lblRecordingFrames" Content="Frames" Grid.Row="4" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="Red" Margin="0,13,0,12" Height="26" Width="48" />
+
+                    <Label x:Name="lblRecordingSecsCount" Content="1" Grid.Row="5" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center" Foreground="Red" HorizontalContentAlignment="Right" Width="60" Margin="0,14,0,12" Height="26"/>
+                    <Label x:Name="lblRecordingSecs" Content="Seconds"  Grid.Row="5" Grid.Column="1"  HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="Red" Margin="0,14,0,12" Height="26" Width="54" />
+
+                    <Button x:Name="btnRecordStart" Content="Start" Grid.Row="6" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" Width="100" Click="btnRecordStart_Click" Height="28" FontWeight="Bold"  />
+                    <Button x:Name="btnRecordStop" Content="Stop" Grid.Row="6"  Grid.Column="1"  HorizontalAlignment="Center" VerticalAlignment="Center" Width="100" Click="btnRecordStop_Click" Height="28" FontWeight="Bold" />
+                </Grid>
+
+            </Grid>
+
+        </Grid>
+
+        <!--Row 2-->
+        <Grid x:Name="gridStatusBar1" Grid.Row="2" Grid.Column="0">
+            <StatusBar x:Name="gridStatusBar" HorizontalAlignment="Stretch"  VerticalAlignment="Bottom" Height="35">
+                <TextBlock x:Name="txtStatusBar" Text="{Binding StatusTextMethod}"/>
+            </StatusBar>
+        </Grid>
+
+    </Grid>
+
+</Window>

@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.30501.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KinectV2_Body_Face_Capturer", "KinectV2_Body_Face_Capturer\KinectV2_Body_Face_Capturer.csproj", "{ED70FA01-B6E9-4EE0-A490-82F1542C216C}"
+EndProject
+Global
+	GlobalSection(SubversionScc) = preSolution
+		Svn-Managed = True
+		Manager = AnkhSVN - Subversion Support for Visual Studio
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Release|x64 = Release|x64
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{ED70FA01-B6E9-4EE0-A490-82F1542C216C}.Debug|x64.ActiveCfg = Debug|x64
+		{ED70FA01-B6E9-4EE0-A490-82F1542C216C}.Debug|x64.Build.0 = Debug|x64
+		{ED70FA01-B6E9-4EE0-A490-82F1542C216C}.Release|x64.ActiveCfg = Release|x64
+		{ED70FA01-B6E9-4EE0-A490-82F1542C216C}.Release|x64.Build.0 = Release|x64
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
